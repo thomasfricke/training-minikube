@@ -25,7 +25,8 @@ Other operating systems should work, but have not been tested.
 Inside the container another Docker runtime is used to run Kubernetes pods. 
 Cri-o and containerd should work and can be tested as far as Minikube is supporting them.
 
-## Build and Run
+
+## Installation -- Build and Run
 
 Run the `build` script creating a local container image tagged `training-minikube` 
 and use `start`, which boots into the docker vm-driver 
