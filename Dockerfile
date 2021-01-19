@@ -7,5 +7,5 @@ RUN mkdir -p /root/.kube && ln -s /var/lib/minikube/kubeconfig /root/.kube/confi
 COPY jupyter.service /etc/systemd/system/jupyter.service
 RUN ln -s /etc/systemd/system/jupyter.service /etc/systemd/system/default.target.wants/jupyter.service 
 RUN sed -i s+/snap/bin+/usr/local/go/bin:/root/go/bin:/home/docker/go/bin:/var/lib/minikube/binaries/v1.20.0+ /etc/environment
-
+COPY showurl /usr/local/bin
 
