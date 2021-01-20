@@ -4,7 +4,9 @@ Description=Jupyter Notebook
 [Service]
 Type=simple
 ExecStartPre=/bin/sh -c "systemctl set-environment HOST_IP=$(hostname -i)"
-ExecStart=/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root
+ExecStartPre=/bin/sh -c "systemctl set-environment HOME=/root"
+EnvironmentFile=/etc/environment
+ExecStart=/bin/bash -c "/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root"
 ExecStop=/usr/local/bin/jupyter-lab stop
 WorkingDirectory=/minikube-host/training/notebooks
 
