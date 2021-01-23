@@ -5,6 +5,9 @@ Description=Jupyter Notebook
 Type=simple
 ExecStartPre=/bin/sh -c "systemctl set-environment HOST_IP=$(hostname -i)"
 ExecStartPre=/bin/sh -c "systemctl set-environment HOME=/root"
+ExecStartPre=/bin/sh -c "systemctl set-environment SHELL=/bin/bash"
+ExecStartPre=/bin/sh -c "systemctl set-environment GOPATH=/root/go"
+ExecStartPre=/bin/sh -c "systemctl set-environment GOROOT=/usr/local/go"
 EnvironmentFile=/etc/environment
 ExecStart=/bin/bash -c "/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root"
 ExecStop=/usr/local/bin/jupyter-lab stop
