@@ -1,17 +1,62 @@
 #!/bin/sh
 
+run_dir=$(git rev-parse --show-toplevel)
+cd ${run_dir}
+
+: ${MINIKUBE_VERSION:=v1.16.0}
+
+if [ `id -u` -ne 0 ]; then
+  echo $0: run as root
+  exit 1
+fi
+
+function setup_linux() {
+  if [ -f /usr/local/bin/minikube ]; then
+    echo $0: /usr/local/bin/minikube already exists
+    exit 1
+  else
+    curl -Lo .tmp/minikube https://storage.googleapis.com/minikube/releases/${MINIKUBE_VERSION}/minikube-linux-amd64
+    sudo install .tmp/minikube /usr/local/bin/minikube
+  fi
+
+  if [ -f /usr/local/bin/kubectl ]; then
+    echo $0: /usr/local/bin/kubectl already exists
+    exit 1
+  else
+    curl -Lo .tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+    sudo install .tmp/kubectl /usr/local/bin/kubectl
+  fi
+}
+
+function myhelp() {
+    echo install curl, minikube, git
+
+    echo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v1.16.0/minikube-darwin-amd64 \
+    echo \&\& chmod +x /usr/local/bin/minikube
+
+    echo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v1.16.0/minikube-linux-amd64 \
+    echo  \&\& chmod +x /usr/local/bin/minikube
+
+    echo choco install minikube kubernetes-cli
+}
+
 if [ -f /etc/os-release ]; then
   source /etc/os-release
 
+  case $ID in
+    fedora)
+      setup_linux
+    ;;
+    arch)
+      setup_linux
+    ;;
+    alpine)
+      setup_linux
+    ;;
+    *)
+      myhelp
+    ;;
+  esac
+else
+  myhelp
 fi
-
-echo install curl, minikube, git
-
-echo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v1.16.0/minikube-darwin-amd64 \
-  && chmod +x /usr/local/bin/minikube
-
-echo curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/v1.16.0/minikube-linux-amd64 \
-  && chmod +x /usr/local/bin/minikube
-
-echo choco install minikube kubernetes-cli
-

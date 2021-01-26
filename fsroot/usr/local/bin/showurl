@@ -1,4 +1,9 @@
 #!/bin/bash
 
-awk -F \" '/href/{print "open the URI  \n\n\t\t"  $2 "\n\nto connect to Jupyterlab in Minikube" }'  /root/.local/share/jupyter/runtime/jpserver-*-open.html
+if [ -z "$(find /root/.local/share/jupyter/runtime/ -name "jpserver-*-open.html")" ]; then
+  echo "No notebooks given. Please read the manual carefully about where to place the Jupyternotebook-files."
+  exit 1
+fi
+
+awk -F \" '/href/{print "open the URI  \n\n\t\t"  $2 "\n\n\t# or if you use X11\n\n\t\techo \""$2"\" | xclip -selection clipboard\n\nto connect to Jupyterlab in Minikube" }'  /root/.local/share/jupyter/runtime/jpserver-*-open.html
 

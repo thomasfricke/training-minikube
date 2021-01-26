@@ -9,7 +9,7 @@ ExecStartPre=/bin/sh -c "systemctl set-environment SHELL=/bin/bash"
 ExecStartPre=/bin/sh -c "systemctl set-environment GOPATH=/root/go"
 ExecStartPre=/bin/sh -c "systemctl set-environment GOROOT=/usr/local/go"
 EnvironmentFile=/etc/environment
-ExecStart=/bin/bash -c "/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root"
+ExecStart=/bin/bash -c "/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root --log-level=INFO"
 ExecStop=/usr/local/bin/jupyter-lab stop
 WorkingDirectory=/minikube-host/notebooks
 

@@ -31,20 +31,29 @@ Cri-o and containerd should work and can be tested as far as Minikube is support
 
 0. Make free space available
 
-Make sure you've got at least 5 GiB free space available.
+   Make sure you've got at least 5 GiB free space available.
 
 1. Install minikube
 
-  Follow https://minikube.sigs.k8s.io/docs/start/ for the mainstream linux
-  distributions. To install it on Arch Linux run `pacman -S minikube`.
+   Follow https://minikube.sigs.k8s.io/docs/start/ for the mainstream linux
+   distributions. To install it on Arch Linux run `pacman -S minikube`.
 
 2. Fix permissions to run `minikube` with `docker`-driver:
 
-   ~~~
+   ```
    sudo usermod -aG docker $USER && newgrp docker
-   ~~~
+   ```
 
 ### Modify environment
+
+**Docker**
+
+Make sure you've got `docker` installed and you are member of the
+`docker`-group.
+
+```
+gpasswd -a $USERNAME docker
+```
 
 **Fedora 33**
 
@@ -55,13 +64,13 @@ Please pass `systemd.unified_cgroup_hierarchy=0` to the kernel for newer Fedoras
 
 Configure SELinux via `/etc/selinux/config` to be permissive.
 
-~~~
+```
 SELINUX=permissive
-~~~
+```
 
 Remove the corresponding setting for the docker daemon in `/etc/sysconfig/docker`.
 
-~~~
+```
 # OPTIONS="--selinux-enabled
 OPTIONS="
   --log-driver=journald \
@@ -71,34 +80,108 @@ OPTIONS="
   --init-path /usr/libexec/docker/docker-init \
   --userland-proxy-path /usr/libexec/docker/docker-proxy \
 "
-~~~
+```
 
 ### Build and Run image
 
-Run the `bin/build` script creating a local container image tagged `training-minikube` 
-and use `bin/start`, which boots into the docker vm-driver 
-and shows the url to access the Jupyter notebooks.
+1. Clone this repository
+
+   ```
+   git clone https://github.com/thomasfricke/training-minikube
+   ```
+
+   ```
+   .
+   ├── audit-policy.yaml
+   ├── bin                            # Scripts
+   ├── Dockerfile
+   ├── fsroot                         # Filesystem for the Docker Image
+   .
+   .
+   .
+   └── share
+       └── notebooks                  # Place for the notebooks
+           └── HelloWorld.ipynb
+   ```
+
+1. Setup default local environment
+
+   `bin/setup` installs `kubectl` and `minikube`. `MINIKUBE_VERSION:=v1.16.0
+   bin/setup` chooses a specific minikube version.
+
+1. Build local image
+
+   Run the `bin/build` script. This creates a local container image tagged
+   `training-minikube`.
+
+2. Start minikube
+
+   Boot minikube with `bin/start`. It shows the url to access the Jupyter notebooks. Copy the url.
+
+   ```
+   😄  minikube v1.16.0 on Arch rolling
+   ✨  Using the docker driver based on user configuration
+   ❗  docker is currently using the overlay storage driver, consider switching to overlay2 for better performance
+   👍  Starting control plane node minikube in cluster minikube
+   🔥  Creating docker container (CPUs=4, Memory=8192MB) ...
+   🐳  Preparing Kubernetes v1.20.0 on Docker 20.10.2 ...
+       ▪ Generating certificates and keys ...
+       ▪ Booting up control plane ...
+       ▪ Configuring RBAC rules ...
+   🔎  Verifying Kubernetes components...
+   🌟  Enabled addons: storage-provisioner, default-storageclass
+   
+   ❗  /home/d/bin/kubectl is version 1.7.0, which may have incompatibilites with Kubernetes 1.20.0.
+       ▪ Want kubectl v1.20.0? Try 'minikube kubectl -- get pods -A'
+   🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
+   open the URI
+   
+                   http://192.168.49.2:8888/lab?token=52b93e80e5a6e8577e20efc3af4fa87f92cc1f17669db025
+   
+           # or if you use X11
+   
+                   echo "http://192.168.49.2:8888/lab?token=52b93e80e5a6e8577e20efc3af4fa87f92cc1f17669db025" | xclip -selection clipboard
+   
+   to connect to Jupyterlab in Minikube
+   ```
+
+3. Open a browser on your local machine
+
+   Paste url in your browser. If it fails to execute the commands, please try another one.
+
+4. Download Jupyter-Notebooks
+
+   Download notebooks and place the `*.ipynb` files in `share/notebooks/`. The directory is mounted into the
+   "minikube"-container.
+
+## Other commands
+
+### Reset "minikube" environment
 
 ```
-😄  minikube v1.16.0 auf Ubuntu 20.04
-✨  Using the docker driver based on user configuration
-👍  Starting control plane node minikube in cluster minikube
-🔥  Creating docker container (CPUs=4, Memory=8192MB) ...
-🐳  Preparing Kubernetes v1.20.0 auf Docker 20.10.2...
-    ▪ Generating certificates and keys ...
-    ▪ Booting up control plane ...
-    ▪ Configuring RBAC rules ...
-🔎  Verifying Kubernetes components...
-🌟  Enabled addons: storage-provisioner, default-storageclass
-🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
-open the URI  
-
-    http://192.168.49.2:8888/lab?token=e5...bf
-
-to connect to Jupyterlab in Minikube
-
+bin/reset
 ```
 
-## Mounting the home directory
+### Stop minikube
 
-The users home directory is mounted into the container to persist the edited notebooks.
+```
+bin/stop
+```
+
+### Reset and start a fresh instance in one go
+
+```
+bin/reset && bin/start
+```
+
+### Run "minikube" with audit backend
+
+```
+bin/start_audit
+```
+
+### Run "minikube" with calico networks
+
+```
+bin/start_calico
+```
