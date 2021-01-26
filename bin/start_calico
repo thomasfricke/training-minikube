@@ -3,4 +3,4 @@
 run_dir=$(git rev-parse --show-toplevel)
 cd ${run_dir}
 
-./start --network-plugin=cni --cni=calico
+./bin/start --network-plugin=cni --cni=calico
