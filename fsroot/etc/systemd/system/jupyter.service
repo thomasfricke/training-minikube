@@ -11,7 +11,7 @@ ExecStartPre=/bin/sh -c "systemctl set-environment GOROOT=/usr/local/go"
 EnvironmentFile=/etc/environment
 ExecStart=/bin/bash -c "/usr/local/bin/jupyter-lab --ip $HOST_IP --allow-root"
 ExecStop=/usr/local/bin/jupyter-lab stop
-WorkingDirectory=/minikube-host/training/notebooks
+WorkingDirectory=/minikube-host/notebooks
 
 [Install]
 WantedBy=default.target

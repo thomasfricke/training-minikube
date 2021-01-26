@@ -1,0 +1,7 @@
+#!/bin/sh
+
+run_dir=$(git rev-parse --show-toplevel)
+minikube start --vm-driver=docker --cpus=4 --memory=8192 --mount=true --mount-string="${run_dir}/share:/minikube-host" --base-image=training-minikube $*
+minikube ssh sudo showurl
+minikube ssh sudo chmod go-rw /root/.kube/config
+

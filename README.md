@@ -28,8 +28,8 @@ Cri-o and containerd should work and can be tested as far as Minikube is support
 
 ## Installation -- Build and Run
 
-Run the `build` script creating a local container image tagged `training-minikube` 
-and use `start`, which boots into the docker vm-driver 
+Run the `bin/build` script creating a local container image tagged `training-minikube` 
+and use `bin/start`, which boots into the docker vm-driver 
 and shows the url to access the Jupyter notebooks.
 
 ```
