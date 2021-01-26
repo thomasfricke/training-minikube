@@ -1,5 +1,6 @@
 #!/bin/sh
 
 run_dir=$(git rev-parse --show-toplevel)
+cd ${run_dir}
 
 docker build ${run_dir} -t training-minikube -f  $(git rev-parse --show-toplevel)/Dockerfile

@@ -1,5 +1,8 @@
 #!/bin/sh
 
+run_dir=$(git rev-parse --show-toplevel)
+cd ${run_dir}
+
 : ${MINIKUBE_VERSION:=v1.16.0}
 
 if [ `id -u` -ne 0 ]; then
