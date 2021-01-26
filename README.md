@@ -147,7 +147,7 @@ OPTIONS="
 
 3. Open a browser on your local machine
 
-   Paste url in your browser.
+   Paste url in your browser. If it fails to execute the commands, please try another one.
 
 4. Download Jupyter-Notebooks
 
