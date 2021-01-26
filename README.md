@@ -40,9 +40,9 @@ Cri-o and containerd should work and can be tested as far as Minikube is support
 
 2. Fix permissions to run `minikube` with `docker`-driver:
 
-   ~~~
+   ```
    sudo usermod -aG docker $USER && newgrp docker
-   ~~~
+   ```
 
 ### Modify environment
 
@@ -63,13 +63,13 @@ Please pass `systemd.unified_cgroup_hierarchy=0` to the kernel for newer Fedoras
 
 Configure SELinux via `/etc/selinux/config` to be permissive.
 
-~~~
+```
 SELINUX=permissive
-~~~
+```
 
 Remove the corresponding setting for the docker daemon in `/etc/sysconfig/docker`.
 
-~~~
+```
 # OPTIONS="--selinux-enabled
 OPTIONS="
   --log-driver=journald \
@@ -79,15 +79,15 @@ OPTIONS="
   --init-path /usr/libexec/docker/docker-init \
   --userland-proxy-path /usr/libexec/docker/docker-proxy \
 "
-~~~
+```
 
 ### Build and Run image
 
 1. Clone this repository
 
-   ~~~
+   ```
    git clone https://github.com/thomasfricke/training-minikube
-   ~~~
+   ```
 
    ```
    .
