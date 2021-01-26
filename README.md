@@ -48,7 +48,8 @@ Cri-o and containerd should work and can be tested as far as Minikube is support
 
 **Docker**
 
-Make sure your member of the `docker`-group.
+Make sure you've got `docker` installed and you are member of the
+`docker`-group.
 
 ```
 gpasswd -a $USERNAME docker
