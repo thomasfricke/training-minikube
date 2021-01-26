@@ -5,5 +5,5 @@ if [ -z "$(find /root/.local/share/jupyter/runtime/ -name "jpserver-*-open.html"
   exit 1
 fi
 
-awk -F \" '/href/{print "open the URI  \n\n\t\t"  $2 "\n# or if you use X11\n\t\techo \""$2"\" | xclip -selection clipboard\n\nto connect to Jupyterlab in Minikube" }'  /root/.local/share/jupyter/runtime/jpserver-*-open.html
+awk -F \" '/href/{print "open the URI  \n\n\t\t"  $2 "\n\n\t# or if you use X11\n\n\t\techo \""$2"\" | xclip -selection clipboard\n\nto connect to Jupyterlab in Minikube" }'  /root/.local/share/jupyter/runtime/jpserver-*-open.html
 
