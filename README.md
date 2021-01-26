@@ -46,6 +46,14 @@ Cri-o and containerd should work and can be tested as far as Minikube is support
 
 ### Modify environment
 
+**Docker**
+
+Make sure your member of the `docker`-group.
+
+```
+gpasswd -a $USERNAME docker
+```
+
 **Fedora 33**
 
 Please make sure you run your kernel with cgroups v1. Using cgroups v2 will break the `build`-script. 
