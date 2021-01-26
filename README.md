@@ -160,6 +160,12 @@ bin/reset
 bin/stop
 ```
 
+### Reset and start a fresh instance in one go
+
+```
+bin/reset && bin/start
+```
+
 ### Run "minikube" with audit backend
 
 ```
