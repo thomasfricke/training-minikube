@@ -143,10 +143,31 @@ OPTIONS="
 
 4. Download Jupyter-Notebooks
 
-   Place the Jupyter-Notebooks in `share/notebooks`.
+   Download notebooks and place the `*.ipynb` files in `share/notebooks/`. The directory is mounted into the
+   "minikube"-container.
 
+## Other commands
 
-## Mounting the home directory
+### Reset "minikube" environment
 
-The users home directory is mounted into the container to persist the edited notebooks.
+```
+bin/reset
+```
 
+### Stop minikube
+
+```
+bin/stop
+```
+
+### Run "minikube" with audit backend
+
+```
+bin/start_audit
+```
+
+### Run "minikube" with calico networks
+
+```
+bin/start_calico
+```
