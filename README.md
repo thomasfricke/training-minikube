@@ -118,23 +118,30 @@ OPTIONS="
    Boot minikube with `bin/start`. It shows the url to access the Jupyter notebooks. Copy the url.
 
    ```
-   😄  minikube v1.16.0 auf Ubuntu 20.04
+   😄  minikube v1.16.0 on Arch rolling
    ✨  Using the docker driver based on user configuration
+   ❗  docker is currently using the overlay storage driver, consider switching to overlay2 for better performance
    👍  Starting control plane node minikube in cluster minikube
    🔥  Creating docker container (CPUs=4, Memory=8192MB) ...
-   🐳  Preparing Kubernetes v1.20.0 auf Docker 20.10.2...
+   🐳  Preparing Kubernetes v1.20.0 on Docker 20.10.2 ...
        ▪ Generating certificates and keys ...
        ▪ Booting up control plane ...
        ▪ Configuring RBAC rules ...
    🔎  Verifying Kubernetes components...
    🌟  Enabled addons: storage-provisioner, default-storageclass
+   
+   ❗  /home/d/bin/kubectl is version 1.7.0, which may have incompatibilites with Kubernetes 1.20.0.
+       ▪ Want kubectl v1.20.0? Try 'minikube kubectl -- get pods -A'
    🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
-   open the URI  
-
-       http://192.168.49.2:8888/lab?token=e5...bf
-
+   open the URI
+   
+                   http://192.168.49.2:8888/lab?token=52b93e80e5a6e8577e20efc3af4fa87f92cc1f17669db025
+   
+           # or if you use X11
+   
+                   echo "http://192.168.49.2:8888/lab?token=52b93e80e5a6e8577e20efc3af4fa87f92cc1f17669db025" | xclip -selection clipboard
+   
    to connect to Jupyterlab in Minikube
-
    ```
 
 3. Open a browser on your local machine
