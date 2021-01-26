@@ -1,2 +1,3 @@
-/share/notebooks/
+/share/notebooks/Courses
+.ipynb_checkpoints/
 .tmp/
