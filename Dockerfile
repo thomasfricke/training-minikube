@@ -3,7 +3,7 @@ FROM gcr.io/k8s-minikube/kicbase:v0.0.15-snapshot4@sha256:ef1f485b5a1cfa4c989bc0
 # install tooling
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt install -y python3-pip wget lsof openssl vim git bash-completion
+    && apt install -y python3-pip wget lsof openssl vim git bash-completion jq
 
 RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
