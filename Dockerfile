@@ -1,4 +1,4 @@
-FROM gcr.io/k8s-minikube/kicbase:v0.0.17
+FROM gcr.io/k8s-minikube/kicbase:v0.0.22
 
 # install tooling
 RUN apt-get update \
