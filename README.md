@@ -16,10 +16,14 @@ tools and applications for Kubernetes, like `kube-bench` on the fly using `go ge
 
 The image and the scripts have been tested using 
 
-* Ubuntu 20.4
+* Ubuntu 20.4.3 LTS
 * Docker Community 19.03.12
-* derived from Minikube version v1.16.0
-* Go version go1.15.6
+* derived from Minikube version v1.23.2 using container image gcr.io/k8s-minikube/kicbase:v0.0.27
+* Go version go1.17.3
+* Kubernetes version used inside 1.22.2
+
+Especially the minikube  version must fit to the image version! If some of the services are failing or restarting, please check the version numbers!
+
 
 Other operating systems should work, but have not been tested. 
 Inside the container another Docker runtime is used to run Kubernetes pods. 
