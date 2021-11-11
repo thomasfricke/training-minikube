@@ -1,6 +1,9 @@
-FROM gcr.io/k8s-minikube/kicbase:v0.0.23
+FROM gcr.io/k8s-minikube/kicbase:v0.0.27
 
 # install tooling
+
+RUN rm /etc/apt/sources.list.d/devel\:kubic\:libcontainers\:stable\:cri-o\:1.22.list
+
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt install -y python3-pip wget lsof openssl vim git bash-completion jq pandoc
@@ -23,5 +26,11 @@ RUN apt-get update && sudo apt-get install -y apt-transport-https \
     && sudo apt-get update \
     && sudo apt-get install -y kubectl
 
+#RUN wget -q https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.22/xUbuntu_20.04/amd64/cri-o_1.22.0~0_amd64.deb \
+#    && dpkg -i cri-o_1.22.0~0_amd64.deb \
+#    && rm cri-o_1.22.0~0_amd64.deb
+
 # add files
 ADD fsroot/ /
+
+
