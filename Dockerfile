@@ -1,7 +1,8 @@
 FROM gcr.io/k8s-minikube/kicbase:v0.0.27
 
 # install tooling
-
+# at the moment the Suse cert chain is broken, preinstalled anyway
+#
 RUN rm /etc/apt/sources.list.d/devel\:kubic\:libcontainers\:stable\:cri-o\:1.22.list
 
 RUN apt-get update \
@@ -12,7 +13,7 @@ RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
 # add golang
-RUN curl -L /tmp/go.tar.gz https://golang.org/dl/go1.16.5.linux-amd64.tar.gz | tar -zxf - -C /usr/local
+RUN curl -L /tmp/go.tar.gz https://golang.org/dl/go1.17.3.linux-amd64.tar.gz | tar -zxf - -C /usr/local
 
 # install helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
@@ -25,10 +26,6 @@ RUN apt-get update && sudo apt-get install -y apt-transport-https \
     && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list \
     && sudo apt-get update \
     && sudo apt-get install -y kubectl
-
-#RUN wget -q https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable:/cri-o:/1.22/xUbuntu_20.04/amd64/cri-o_1.22.0~0_amd64.deb \
-#    && dpkg -i cri-o_1.22.0~0_amd64.deb \
-#    && rm cri-o_1.22.0~0_amd64.deb
 
 # add files
 ADD fsroot/ /
