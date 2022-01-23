@@ -24,8 +24,8 @@ jobs:
 
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag minikube:latest
-        docker tag minikube:latest minikube:v0.0.27
+        docker build . --file Dockerfile --tag ghcr.io/thomasfricke/minikube:latest
+        docker tag minikube:latest ghcr.io/thomasfricke/minikube:v0.0.27
     
     - name: Push to registry
       run: |
