@@ -7,7 +7,7 @@ RUN rm /etc/apt/sources.list.d/devel\:kubic\:libcontainers\:stable\:cri-o\:1.22.
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt install -y python3-pip wget lsof openssl vim git bash-completion jq pandoc
+    && apt install -y python3-pip wget lsof openssl vim git bash-completion jq pandoc graphviz
 
 RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
