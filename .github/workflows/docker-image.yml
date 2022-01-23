@@ -14,5 +14,21 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Docker Login to ghcr.io
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag minikube:v0.0.27
+      run: |
+        docker build . --file Dockerfile --tag minikube:latest
+        docker tag minikube:latest minikube:v0.0.27
+    
+    - name: Push to registry
+      run: |
+        docker push ghcr.io/thomasfricke/minikube:v0.0.27
+        docker push ghcr.io/thomasfricke/minikube:latest
+        
