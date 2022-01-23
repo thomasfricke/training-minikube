@@ -1,0 +1,4 @@
+#!/bin/sh
+
+docker pull ghcr.io/thomasfricke/training-minikube 
+docker tag ghcr.io/thomasfricke/training-minikube minikube
