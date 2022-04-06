@@ -1,9 +1,9 @@
-FROM gcr.io/k8s-minikube/kicbase:v0.0.27
+FROM gcr.io/k8s-minikube/kicbase:v0.0.30 
 
 # install tooling
 # at the moment the Suse cert chain is broken, preinstalled anyway
 #
-RUN rm /etc/apt/sources.list.d/devel\:kubic\:libcontainers\:stable\:cri-o\:1.22.list
+# RUN rm /etc/apt/sources.list.d/devel\:kubic\:libcontainers\:stable\:cri-o\:1.22.list
 
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -13,7 +13,7 @@ RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
 # add golang
-RUN curl -L /tmp/go.tar.gz https://golang.org/dl/go1.17.3.linux-amd64.tar.gz | tar -zxf - -C /usr/local
+RUN curl -L /tmp/go.tar.gz https://go.dev/dl/go1.18.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
 
 # install helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
