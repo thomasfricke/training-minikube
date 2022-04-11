@@ -1,4 +1,7 @@
-FROM gcr.io/k8s-minikube/kicbase:v0.0.30 
+FROM ubuntu 
+
+ENV TZ="Europe/Berlin"
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # install tooling
 # at the moment the Suse cert chain is broken, preinstalled anyway
@@ -7,7 +10,7 @@ FROM gcr.io/k8s-minikube/kicbase:v0.0.30
 
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt install -y python3-pip wget lsof openssl vim git bash-completion jq pandoc graphviz
+    && apt install -y python3-pip curl wget lsof openssl vim git bash-completion jq pandoc graphviz
 
 RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
@@ -21,13 +24,13 @@ RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 |
 # fix paths
 RUN sed -i s+/snap/bin+/usr/local/go/bin:/root/go/bin:/home/docker/go/bin:/var/lib/minikube/binaries/v1.20.0+ /etc/environment
 
-RUN apt-get update && sudo apt-get install -y apt-transport-https \
-    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - \
-    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list \
-    && sudo apt-get update \
-    && sudo apt-get install -y kubectl
+RUN apt-get update && apt-get install -y apt-transport-https \
+    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
+    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
+    && apt-get update \
+    && apt-get install -y kubectl
 
-# add files
-ADD fsroot/ /
+ADD entrypoint.sh /usr/local/bin
 
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
