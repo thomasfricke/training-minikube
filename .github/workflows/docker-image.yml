@@ -2,9 +2,8 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ '*' ]
 
 jobs:
 
@@ -21,14 +20,28 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Build the Docker image
-      run: |
-        docker build . --file Dockerfile --tag ghcr.io/thomasfricke/minikube:latest
-        docker tag ghcr.io/thomasfricke/minikube:latest ghcr.io/thomasfricke/minikube:v0.0.27
-    
-    - name: Push to registry
-      run: |
-        docker push ghcr.io/thomasfricke/minikube:v0.0.27
-        docker push ghcr.io/thomasfricke/minikube:latest
+    - name: Docker meta
+      id: meta
+      uses: docker/metadata-action@v3
+      with:
+        # list of Docker images to use as base name for tags
+        images: |
+          ghcr.io/thomasfricke/training
+        # Docker tags based on the following events/attributes
+        tags: |
+          type=schedule
+          type=ref,event=branch
+          type=ref,event=pr
+          type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}
+          type=sha
+    - name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        platforms: linux/amd64
+        push: ${{ github.event_name != 'pull_request' }}
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}    
         
