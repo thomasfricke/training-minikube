@@ -10,7 +10,7 @@ then
   done
   echo export 'PATH=$PATH:$(echo $PATH | sed s+^+/host+ |  sed "s+\:+\:/host+g"):/usr/local/go/bin' > /root/.bash_aliases 
   echo source /usr/share/bash-completion/bash_completion >> /root/.bash_aliases
-  for i in crictl docker kubectl helm ; do $i completion bash > /etc/bash_completion.d/$i.sh ; done
+  for i in crictl kubectl helm ; do $i completion bash > /etc/bash_completion.d/$i.sh ; done
   source /root/.bash_aliases
 else
   echo "no /host dir found"
