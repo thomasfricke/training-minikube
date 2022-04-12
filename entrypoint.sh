@@ -18,5 +18,6 @@ else
   echo "no /host dir found"
 fi
 
+cd /notebooks
 
 /usr/local/bin/jupyter-lab --ip $(hostname -i) --allow-root --log-level=INFO
