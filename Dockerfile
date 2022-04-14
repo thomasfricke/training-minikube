@@ -32,7 +32,6 @@ RUN apt-get update && apt-get install -y apt-transport-https \
     && curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
 
 ADD entrypoint.sh /usr/local/bin
-ADD crictl.yaml /etc
 ADD notebooks /notebooks
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

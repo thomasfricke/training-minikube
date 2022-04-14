@@ -18,6 +18,7 @@ then
   done
   
   command docker || rm /etc/bash_completion.d/docker.sh
+  ln -s /host/etc/crictl.yaml /etc/
 else
   echo "no /host dir found"
 fi
