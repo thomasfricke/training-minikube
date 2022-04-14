@@ -12,7 +12,10 @@ then
   echo source /usr/share/bash-completion/bash_completion >> /root/.bash_aliases
   source /root/.bash_aliases
 
-  for i in crictl kubectl helm ; do $i completion bash > /etc/bash_completion.d/$i.sh ; done
+  for i in docker crictl kubectl helm
+  do 
+     command $i && ( $i completion bash > /etc/bash_completion.d/$i.sh ) 
+  done
 
 else
   echo "no /host dir found"
