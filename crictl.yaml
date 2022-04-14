@@ -1,4 +1,0 @@
- cat /etc/crictl.yaml 
-runtime-endpoint: "unix:///var/run/crio/crio.sock"
-timeout: 0
-debug: false
