@@ -172,10 +172,13 @@ bin/reset
 bin/stop
 ```
 
-### Reset and start a fresh instance in one go
+### Update setup
 
 ```
-bin/reset && bin/start
+git pull \
+&& bin/build \
+&& bin/reset \
+&& bin/start
 ```
 
 ### Run "minikube" with audit backend

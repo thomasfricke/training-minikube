@@ -4,5 +4,5 @@ run_dir=$(git rev-parse --show-toplevel)
 cd ${run_dir}
 
 mkdir -p ~/.minikube/files/etc/ssl/certs
-~/.minikube/files/etc/ssl/certs/audit-policy.yaml
+cp audit-policy.yaml ~/.minikube/files/etc/ssl/certs/audit-policy.yaml
 ./bin/start --extra-config=apiserver.audit-policy-file=/etc/ssl/certs/audit-policy.yaml --extra-config=apiserver.audit-log-path=-
