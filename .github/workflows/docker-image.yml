@@ -27,6 +27,7 @@ jobs:
         images: |
           ghcr.io/thomasfricke/training
         # Docker tags based on the following events/attributes
+        flavor: latest=true
         tags: |
           type=schedule
           type=ref,event=branch
