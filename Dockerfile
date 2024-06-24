@@ -12,6 +12,14 @@ RUN apt-get update \
 RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
+RUN pip3 install -U nbconvert \
+    && apt install -y pandoc texlive-xetex
+
+# currently broken
+#RUN pip3 install -U notebook-as-pdf \
+#    && apt install -y libx11-xcb1 libxtst6 libxrandr2 libasound2 libpangocairo-1.0-0 libatk1.0-0 libatk-bridge2.0-0 libgtk-3-0 libnss3 libxss1 \
+#    && pyppeteer-install
+
 # add golang
 RUN curl -L /tmp/go.tar.gz https://go.dev/dl/go1.18.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
 
