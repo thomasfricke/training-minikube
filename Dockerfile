@@ -12,6 +12,9 @@ RUN apt-get update \
 RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
+RUN pip3 install -U nbconvert \
+    && apt install -y pandoc texlive-xetex
+
 # add golang
 RUN curl -L /tmp/go.tar.gz https://go.dev/dl/go1.18.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
 
