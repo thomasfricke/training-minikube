@@ -1,4 +1,4 @@
-FROM ubuntu 
+FROM  gcr.io/k8s-minikube/kicbase:v0.0.48
 
 ENV TZ="Europe/Berlin"
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
@@ -16,23 +16,17 @@ RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
 # add golang
-RUN curl -L /tmp/go.tar.gz https://go.dev/dl/go1.18.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.25.5.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
 
 # install helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
 
-# fix paths
-RUN sed -i s+/snap/bin+/usr/local/go/bin:/root/go/bin:/home/docker/go/bin:/var/lib/minikube/binaries/v1.20.0+ /etc/environment
+RUN apt-get update && apt-get install -y apt-transport-https 
 
-RUN apt-get update && apt-get install -y apt-transport-https \
-    && curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
-    && echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
-    && apt-get update \
-    && apt-get install -y kubectl \
-    && curl https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o /etc/bash_completion.d/docker.sh
-
-ADD entrypoint.sh /usr/local/bin
 ADD notebooks /notebooks
+ADD jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ADD entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
 
