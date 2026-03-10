@@ -1,6 +1,0 @@
-#!/bin/sh
-
-run_dir=$(git rev-parse --show-toplevel)
-cd ${run_dir}
-
-./bin/start --network-plugin=cni --cni=calico

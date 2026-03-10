@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
     branches: [ '*' ]
+<<<<<<< HEAD
+=======
+
+>>>>>>> lean
 jobs:
 
   build:
@@ -27,7 +31,10 @@ jobs:
         images: |
           ghcr.io/thomasfricke/training
         # Docker tags based on the following events/attributes
+<<<<<<< HEAD
         flavor: latest=true
+=======
+>>>>>>> lean
         tags: |
           type=schedule
           type=ref,event=branch
