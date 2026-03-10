@@ -19,13 +19,16 @@ jobs:
         registry: ghcr.io
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
+        major: 2
+        minor: 1
+        run_number: ${{ github.run_number }}
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v3
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ghcr.io/thomasfricke/training:v2.1.${{ github.run_number }}
+          ghcr.io/thomasfricke/training
         # Docker tags based on the following events/attributes
         flavor: latest=true
         tags: |
@@ -34,6 +37,7 @@ jobs:
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
+          type=semver,pattern={{major}}.{{minor}}.${{ run_number }}
           type=semver,pattern={{major}}
           type=sha
     - name: Build and push
