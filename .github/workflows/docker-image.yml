@@ -23,7 +23,7 @@ jobs:
         minor: 1
     - name: Docker meta
       id: meta
-      uses: docker/metadata-action@v3
+      uses: docker/metadata-action@v6
       with:
         # list of Docker images to use as base name for tags
         images: |
@@ -39,7 +39,7 @@ jobs:
           type=semver,pattern={{major}}
           type=sha
     - name: Build and push
-      uses: docker/build-push-action@v2
+      uses: docker/build-push-action@v7
       with:
         context: .
         platforms: linux/amd64
