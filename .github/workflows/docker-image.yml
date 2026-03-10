@@ -21,7 +21,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
         major: 2
         minor: 1
-        run_number: ${{ github.run_number }}
     - name: Docker meta
       id: meta
       uses: docker/metadata-action@v3
@@ -36,7 +35,7 @@ jobs:
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
-          type=semver,pattern={{major}}.{{minor}}.${{ run_number }}
+          type=semver,pattern={{major}}.{{minor}}.${{ github.run_number }}
           type=semver,pattern={{major}}
           type=sha
     - name: Build and push
