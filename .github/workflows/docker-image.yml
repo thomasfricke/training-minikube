@@ -31,7 +31,7 @@ jobs:
         # Docker tags based on the following events/attributes
         flavor: latest=true
         tags: |
-          type=schedule
+          #   type=schedule
           type=ref,event=pr
           type=semver,pattern={{version}}
           type=semver,pattern={{major}}.{{minor}}
@@ -45,5 +45,7 @@ jobs:
         platforms: linux/amd64
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}    
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
         
