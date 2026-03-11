@@ -30,6 +30,20 @@ Finally run the very privileged container on the first host
 kubectl create -f k3s-training.yaml
 ```
 
+## Access
+
+The container is deployed on host `k3d-host-cluster-server-0`.
+Adapt if your cluster has different names. You can now open
+`http://k3d-host-cluster-server-0:8889/lab` in a browser. 
+
+Change the name of the URI according to your setup. If you
+run k3s on the same node as the browser just use
+`http://localhost:8889/lab`
+
+The port can be configured in the `k3s-training.yaml`.
+Just change `JUPYTERLAB_PORT` to your needs.
+
+
 ## Dockerfile
 
 You can bake your own images and add additional tools. This might be useful
