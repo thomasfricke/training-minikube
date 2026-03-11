@@ -25,7 +25,7 @@ jobs:
       with:
         # list of Docker images to use as base name for tags
         images: |
-          ghcr.io/thomasfricke/training
+          ghcr.io/${{ github.repository }} 
         # Docker tags based on the following events/attributes
         flavor: latest=true
         tags: |
