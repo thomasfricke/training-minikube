@@ -4,7 +4,7 @@ metadata:
   name: training 
 spec:
   containers:
-  - image: ghcr.io/thomasfricke/training/jupyterlab
+  - image: ghcr.io/thomasfricke/training-minikube:latest
     imagePullPolicy: IfNotPresent
     name: training
     env:

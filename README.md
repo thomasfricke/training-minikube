@@ -10,4 +10,35 @@ running complex scenarios.
 
 The intended use is for trainings, where this image is run in a privileged container.
 
- 
+## k3s
+
+Apply the secret to login first
+
+```bash
+kubectl create -f secret-training.yaml
+```
+
+You can obtain the token to login with
+
+```bash
+kubectl get secret training -o jsonpath='{.data.token}' | base64 --decode
+```
+
+Finally run the very privileged container on the first host
+
+```bash
+kubectl create -f k3s-training.yaml
+```
+
+## Dockerfile
+
+You can bake your own images and add additional tools. This might be useful
+especially for air gapped environments.
+
+If your pod has internet access you can additionally add tools add runtime
+from inside
+
+## Have fun!
+
+Enjoy and give feedback! Especially if you make this run on different kinds
+of Kubernetes
