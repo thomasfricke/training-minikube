@@ -43,8 +43,8 @@ jobs:
         platforms: linux/amd64
         push: ${{ github.event_name != 'pull_request' }}
         tags: |
-          latest
-          2.1.${{ github.run_number }}
+          ghcr.io/${{ github.repository }}:latest
+          ghcr.io/${{ github.repository }}:v2.1.${{ github.run_number }}
         labels: ${{ steps.meta.outputs.labels }}
           # cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
           # cache-to: type=registry,ref=ghcr.io/${{ github.repository }}:cache,mode=max
