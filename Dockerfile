@@ -16,7 +16,7 @@ RUN pip3 install jupyterlab bash_kernel \
     && python3 -m bash_kernel.install
 
 # add golang
-RUN curl -L https://go.dev/dl/go1.25.5.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
+RUN curl -L https://go.dev/dl/go1.26.1.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
 
 # install helm
 RUN curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash
