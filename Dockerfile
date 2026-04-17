@@ -12,8 +12,8 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt install -y python3-pip curl wget lsof openssl vim git bash-completion jq pandoc graphviz
 
-RUN pip3 install jupyterlab bash_kernel \
-    && python3 -m bash_kernel.install
+RUN pip3 install jupyterlab bash_kernel pysocks \
+    && python3 -m bash_kernel.install 
 
 # add golang
 RUN curl -L https://go.dev/dl/go1.26.1.linux-amd64.tar.gz  | tar -zxf - -C /usr/local
