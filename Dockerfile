@@ -12,7 +12,7 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt install -y python3-pip curl wget lsof openssl vim git bash-completion jq pandoc graphviz
 
-RUN pip3 install jupyterlab bash_kernel pysocks \
+RUN pip3 install jupyterlab bash_kernel httpx[socks] \
     && python3 -m bash_kernel.install 
 
 # add golang
