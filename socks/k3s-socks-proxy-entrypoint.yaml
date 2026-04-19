@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: proxy-entrypoint
+data:
+  proxy-entrypoint.sh: |
+    #!/bin/bash
+
+    export https_proxy=socks5h://localhost:1080
+    export http_proxy=socks5h://localhost:1080
+    export NO_PROXY=203.0.113.254,127.0.0.1
+    
+    /entrypoint.sh
