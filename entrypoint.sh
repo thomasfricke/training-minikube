@@ -22,6 +22,17 @@ JUPYTERLAB_PORT="${JUPYTERLAB_PORT:-8888}"
 JUPYTERLAB_LOGLEVEL="${JUPYTERLAB_LOGLEVEL:-INFO}" 
 JUPYTERLAB_WELCOME="${JUPYTERLAB_WELCOME:-/notebooks/Welcome.ipynb}"
 JUPYTERLAB_IP="${JUPYTERLAB_IP:-0.0.0.0}"
+JUPYTERLAB_DEFAULT_URL="${JUPYTERLAB_DEFAULT_URL:-/lab}"
+JUPYTERLAB_BASE_URL_UNICODE="${JUPYTERLAB_BASE_URL_UNICODE:-/}"
 
-/usr/local/bin/jupyter-lab --allow-root --port=$JUPYTERLAB_PORT --ip="${JUPYTERLAB_IP}" --log-level=$JUPYTERLAB_LOGLEVEL $JUPYTERLAB_WELCOME --IdentityProvider.token=$JUPYTERLAB_TOKEN
+export SHELL=/bin/bash
+
+/usr/local/bin/jupyter-lab \
+       --allow-root \
+       --port=$JUPYTERLAB_PORT \
+       --ip="${JUPYTERLAB_IP}" \
+       --log-level=$JUPYTERLAB_LOGLEVEL \
+       --IdentityProvider.token=$JUPYTERLAB_TOKEN \
+       --NotebookApp.base_url=$JUPYTERLAB_BASE_URL_UNICODE \
+       $JUPYTERLAB_WELCOME
 
